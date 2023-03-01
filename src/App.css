@@ -1,38 +1,130 @@
-.App {
-  text-align: center;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html {
+  font-size: 62.5%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-header{
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #d9d9d9;
+  padding: 1.2rem 2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.avatar {
+  background-color: #adadad;
+  padding: 0.8rem 0.9rem;
+  border-radius: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form {
+  
 }
+
+form input { 
+  display: block;
+}
+
+.brand-logo {
+  padding: .8rem 2.4rem;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.brand-logo p {
+  font-size: 1.5rem;
+}
+
+.search-bar-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: .5rem;
+  padding: 1.0rem 2rem;
+}
+
+.search-bar-form .fas {
+  cursor: pointer;
+}
+
+.search-bar-form input{
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem; 
+}
+
+.nav-links button { 
+  border: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 0.8rem 2.2rem;
+  cursor: pointer;
+}
+
+.container{
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 5;
+}
+
+.signin, .signup {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 100%;
+  padding: 1.5rem 2.5rem;
+  max-width: 45rem;
+}
+
+.signin-heading, .signup-heading {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.signin form, .signup form {
+    width: 100%;
+}
+
+.signin form input, .signup form input { 
+  margin: 1.5rem 0;
+  width: 100%;
+  border: none;
+  padding: .9rem 1.2rem;
+  background-color: rgba(0, 0, 0, .1);
+  outline: none;
+}
+
+.signin form input.submit, .signup form input.submit { 
+  background-color: #adadad;
+  cursor: pointer;
+}
+
+
+
