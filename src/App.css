@@ -24,10 +24,6 @@ html {
   border-radius: 100%;
 }
 
-form {
-  
-}
-
 form input { 
   display: block;
 }
@@ -126,5 +122,93 @@ form input {
   cursor: pointer;
 }
 
+section.main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2rem 0;
+}
 
+.upload {
+  width: 90%;
+  max-width: 80rem;
+  min-height: 60vh;
+  border-radius: 2rem;
+  border: 3px dashed #318CE7;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
 
+.upload img {
+  width: 10rem;
+}
+
+.upload p {
+  font-size: 1.5rem;
+  margin: .8rem 0;
+}
+
+.upload label {
+  position: relative;
+  padding: .8rem 1.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background-color: #76ABDF;
+  border: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.upload label input {
+  display: none;
+}
+
+.uploads { 
+  width: 100%;
+  padding: 2rem 2.8rem;
+  background-color: rgba(0, 0, 0, .1);
+  margin-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.uploads h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1.3rem;
+}
+
+.uploads .documents-uploaded {
+  list-style: none;
+  width: 100%;
+}
+
+.uploads .documents-uploaded li.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border-top: none ;
+}
+
+.uploads .documents-uploaded li {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid #b1b1b1;
+}
+
+.uploads .documents-uploaded li:first-of-type {
+  border-top: none;
+}

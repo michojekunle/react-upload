@@ -86,7 +86,7 @@ const AuthContextProvider = ({children}) => {
     };
 
     const uploadDocument = (document) => {
-
+        
     };
 
     const searchUploads = (searchTerm) => {
