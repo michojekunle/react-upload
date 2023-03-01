@@ -146,7 +146,11 @@ const AuthContextProvider = ({children}) => {
     }, [docUpload]);
 
     useEffect(() => {
-        setDocUpload(JSON.parse(localStorage.getItem('docupload')))
+        if(localStorage.getItem('docupload') !== null && localStorage.getItem('docupload' !== 'null')){
+            setDocUpload(JSON.parse(localStorage.getItem('docupload')))
+        } else {
+            setDocUpload([]);
+        }
     },[localStorage.getItem('docupload')])
 
   return (
