@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -12,10 +12,11 @@ function App() {
   console.log("Image FIles", docUpload);
 
   const docUploadHandler = (e) => {
+    const fileUploaded = e.target.files[0];
     if (e.target.files.length !== 0) {
-      setDocUpload([...docUpload, { file: e.target.files[0]}]);
+      const file = { name: fileUploaded.name, lastModified: fileUploaded.lastModified, size: fileUploaded.size};
+      setDocUpload([...docUpload, file]);
     }
-
   }
 
   function getLastModified(d_c) {
@@ -70,6 +71,12 @@ function App() {
     // Prevent default behavior (Prevent file from being opened)
     e.preventDefault();
   }
+
+  useEffect(() => {
+    if(docUpload.length>0){
+      localStorage.setItem('docupload', JSON.stringify(docUpload));
+    }
+  },[docUpload])
 
   return (
       <div className="container">
@@ -132,10 +139,10 @@ function App() {
               </li>
               {
                 searchResults.map(upload => (
-                  <li key={upload.file.lastModified}>
-                    <span>{upload.file.name}</span>
-                    <span>{getLastModified(upload.file.lastModified)}</span>
-                    <span>{upload.file.size}kb</span>
+                  <li key={upload.lastModified}>
+                    <span>{upload.name}</span>
+                    <span>{getLastModified(upload.lastModified)}</span>
+                    <span>{upload.size}kb</span>
                   </li>
                 ))
               }

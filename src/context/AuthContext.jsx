@@ -91,7 +91,7 @@ const AuthContextProvider = ({children}) => {
     const searchUploads = (searchTerm) => {
         alert(searchTerm);
         setDocUpload(docUpload.filter(doc => {
-            if(doc.file.name.includes(searchTerm)){
+            if(doc.name.includes(searchTerm)){
                 return doc;
             }
         }));
@@ -124,7 +124,7 @@ const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         setSearchResults(docUpload.filter(doc => {
-            if(doc.file.name.includes(searchTerm)){
+            if(doc.name.includes(searchTerm)){
                 return doc;
             }
         }))
@@ -134,7 +134,7 @@ const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         setSearchResults(docUpload.filter(doc => {
-            if(doc.file.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            if(doc.name.toLowerCase().includes(searchTerm.toLowerCase())){
                 return doc;
             }
         }))
@@ -143,8 +143,11 @@ const AuthContextProvider = ({children}) => {
     }, [docUpload])
 
     useEffect(() => {
-        localStorage.setItem('docupload', JSON.stringify(docUpload))
-    }, [docUpload])
+    }, [docUpload]);
+
+    useEffect(() => {
+        setDocUpload(JSON.parse(localStorage.getItem('docupload')))
+    },[localStorage.getItem('docupload')])
 
   return (
     <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, authstate, setAuthstate, docUpload, setDocUpload, searchTerm, setSearchTerm, searchResults, closeModal}}>
