@@ -4,11 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { handleSignUp, loading } = useContext(AuthContext);
+    const [email, setEmail] = useState('');
+    const { handleSignUp, loading, closeModal } = useContext(AuthContext);
 
 
   return (
     <div className='signup'>
+        <button onClick={closeModal}><i className="fas fa-times"></i></button>
         <h2 className='signup-heading'>Sign Up</h2>
         <form onSubmit={e => { e.preventDefault(); handleSignUp(username, password) }}>
             <input 
@@ -18,6 +20,13 @@ const SignUp = () => {
                 value= {username}
                 onChange={e => setUsername(e.target.value)}
                 required
+            />
+            <input 
+                className="email" 
+                type="email" 
+                placeholder="Enter your Email Address" 
+                value= {email}
+                onChange={e => setEmail(e.target.value)}
             />
             <input 
                 className="password" 

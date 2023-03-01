@@ -4,10 +4,11 @@ import { AuthContext } from '../context/AuthContext';
 const SignIn = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { handleSignIn, loading } = useContext(AuthContext);
+    const { handleSignIn, loading, closeModal } = useContext(AuthContext);
 
   return (
     <div className='signin'>
+        <button onClick={closeModal}><i className="fas fa-times"></i></button>
         <h2 className='signin-heading'>Sign In</h2>
         <form onSubmit={e => {e.preventDefault(); handleSignIn(username, password)}} >
             <input 

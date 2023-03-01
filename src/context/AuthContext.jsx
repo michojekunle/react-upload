@@ -97,6 +97,10 @@ const AuthContextProvider = ({children}) => {
         }));
     };
 
+    const closeModal = () => {
+        setAuthstate({signin: false, signup: false, overlay: false});
+    }
+
     useEffect(() => {
         if(localStorage.getItem('users') !== null && localStorage.getItem('users') !== 'null'){
             setUsers(JSON.parse(localStorage.getItem('users')));
@@ -116,12 +120,16 @@ const AuthContextProvider = ({children}) => {
         }
     }, [localStorage.getItem('userprofile')]);
 
+
+
     useEffect(() => {
         setSearchResults(docUpload.filter(doc => {
             if(doc.file.name.includes(searchTerm)){
                 return doc;
             }
         }))
+    
+    
     }, [searchTerm])
 
     useEffect(() => {
@@ -130,10 +138,16 @@ const AuthContextProvider = ({children}) => {
                 return doc;
             }
         }))
+
+
+    }, [docUpload])
+
+    useEffect(() => {
+        localStorage.setItem('docupload', JSON.stringify(docUpload))
     }, [docUpload])
 
   return (
-    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, authstate, setAuthstate, docUpload, setDocUpload, searchTerm, setSearchTerm, searchResults}}>
+    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, authstate, setAuthstate, docUpload, setDocUpload, searchTerm, setSearchTerm, searchResults, closeModal}}>
         {children}
     </AuthContext.Provider>
   )

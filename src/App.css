@@ -124,6 +124,15 @@ form input {
   cursor: pointer;
 }
 
+.signin button, .signup button {
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+  cursor: pointer;
+}
+
 section.main {
   width: 100%;
   display: flex;
@@ -217,5 +226,6 @@ section.main {
 }
 
 .uploads .documents-uploaded li span {
- width: 120px
+ width: 120px;
 }
+
