@@ -6,6 +6,9 @@ const AuthContextProvider = ({children}) => {
     const [users, setUsers] = useState([]);
     const [uploads, setUploads] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [docUpload, setDocUpload] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [userProfile, setUserProfile] = useState({});
     const [authstate, setAuthstate] = useState({
         signin: false,
@@ -85,12 +88,13 @@ const AuthContextProvider = ({children}) => {
         setUserProfile({});
     };
 
-    const uploadDocument = (document) => {
-        
-    };
-
     const searchUploads = (searchTerm) => {
         alert(searchTerm);
+        setDocUpload(docUpload.filter(doc => {
+            if(doc.file.name.includes(searchTerm)){
+                return doc;
+            }
+        }));
     };
 
     useEffect(() => {
@@ -112,8 +116,24 @@ const AuthContextProvider = ({children}) => {
         }
     }, [localStorage.getItem('userprofile')]);
 
+    useEffect(() => {
+        setSearchResults(docUpload.filter(doc => {
+            if(doc.file.name.includes(searchTerm)){
+                return doc;
+            }
+        }))
+    }, [searchTerm])
+
+    useEffect(() => {
+        setSearchResults(docUpload.filter(doc => {
+            if(doc.file.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                return doc;
+            }
+        }))
+    }, [docUpload])
+
   return (
-    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, uploadDocument, authstate, setAuthstate}}>
+    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, authstate, setAuthstate, docUpload, setDocUpload, searchTerm, setSearchTerm, searchResults}}>
         {children}
     </AuthContext.Provider>
   )

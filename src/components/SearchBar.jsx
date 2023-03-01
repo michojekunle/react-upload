@@ -2,12 +2,11 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 const SearchBar = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const { searchUploads } = useContext(AuthContext);
+    const { searchTerm, setSearchTerm } = useContext(AuthContext);
 
   return (
     <div>
-        <form className='search-bar-form' onSubmit={e => {e.preventDefault(); searchUploads(searchTerm) }}>
+        <form className='search-bar-form' >
             <i className="fas fa-search"></i>
             <input 
                 type="text"

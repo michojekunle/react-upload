@@ -13,6 +13,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
   width: 100%;
   background-color: #d9d9d9;
   padding: 1.2rem 2rem;
@@ -134,7 +136,8 @@ section.main {
 .upload {
   width: 90%;
   max-width: 80rem;
-  min-height: 60vh;
+  min-height: 40vh;
+  max-height: 450px;
   border-radius: 2rem;
   border: 3px dashed #318CE7;
   background-color: #d9d9d9;
@@ -211,4 +214,8 @@ section.main {
 
 .uploads .documents-uploaded li:first-of-type {
   border-top: none;
+}
+
+.uploads .documents-uploaded li span {
+ width: 120px
 }

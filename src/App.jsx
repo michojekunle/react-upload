@@ -8,14 +8,14 @@ import pdf from './pdf.svg';
 import './App.css';
 
 function App() {
-  const { userProfile, handleSignOut, authstate, setAuthstate } = useContext(AuthContext);
-  const [docUpload, setDocUpload] = useState([]);
+  const { userProfile, handleSignOut, authstate, setAuthstate, docUpload, setDocUpload, searchResults } = useContext(AuthContext);
   console.log("Image FIles", docUpload);
 
   const docUploadHandler = (e) => {
     if (e.target.files.length !== 0) {
       setDocUpload([...docUpload, { file: e.target.files[0]}]);
     }
+
   }
 
   function getLastModified(d_c) {
@@ -131,7 +131,7 @@ function App() {
                 <span>size</span>  
               </li>
               {
-                docUpload.map(upload => (
+                searchResults.map(upload => (
                   <li key={upload.file.lastModified}>
                     <span>{upload.file.name}</span>
                     <span>{getLastModified(upload.file.lastModified)}</span>
