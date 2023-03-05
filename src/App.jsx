@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import * as XLSX from 'xlsx/xlsx.mjs';
 import { AuthContext } from './context/AuthContext';
 
 import pdf from './pdf.svg';
@@ -11,8 +12,41 @@ function App() {
   const { userProfile, handleSignOut, authstate, setAuthstate, docUpload, setDocUpload, searchResults } = useContext(AuthContext);
   console.log("Image FIles", docUpload);
 
+    const processExcelFile = (data) => {
+      let workbook = XLSX.read(data, {type: 'binary'});
+      const wsname = workbook.SheetNames[0];
+      const ws = workbook.Sheets[wsname];
+
+      // Convert Array to json
+      const dataParse = XLSX.utils.sheet_to_json(ws, {header: 1});
+      console.log(dataParse);
+
+    } 
+
   const docUploadHandler = (e) => {
     const fileUploaded = e.target.files[0];
+
+    //for browsers other than internet explorer
+    if(typeof (FileReader) != 'undefined'){
+      let reader = new FileReader();
+
+      if(reader.readAsBinaryString){
+        reader.onload = function(e) {
+          processExcelFile(e.target.result)
+        }
+      } else {
+        // For Internet Explorer
+        reader.onload = function(e){
+          let data = "";
+          let bytes = new Uint8Array(e.target.result);
+          for(i=0; i< bytes.byteLength; i++){
+            data += String.fromCharCode(bytes[i]);
+          }
+          processExcelFile(data);
+        }
+      }
+    } 
+
     if (e.target.files.length !== 0) {
       const file = { name: fileUploaded.name, lastModified: fileUploaded.lastModified, size: fileUploaded.size};
       setDocUpload([...docUpload, file]);
@@ -22,7 +56,6 @@ function App() {
   function getLastModified(d_c) {
     const currentDate = (new Date()).getTime();
     const remTime = currentDate - d_c;
-    
     let lastModified;
 
     if(remTime / (1000) < 60 ){
@@ -35,8 +68,7 @@ function App() {
       lastModified = `${(remTime / (1000 * 60 * 60 * 24)).toFixed(0)} days ago`;
     } else {
       lastModified = 'a few weeks ago';
-    }
-    
+    } 
     return lastModified;
   }
 
