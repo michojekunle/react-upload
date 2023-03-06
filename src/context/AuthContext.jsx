@@ -144,11 +144,13 @@ const AuthContextProvider = ({children}) => {
             if (list?.length > 0){
                 list?.forEach(text => {
                     if (String(text).includes(searchTerm)){
+                        
                         found = true;
                     }
                 })
             }
             if (found){
+                
                 return list;
             }
         }));        
