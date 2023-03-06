@@ -97,10 +97,7 @@ const AuthContextProvider = ({children}) => {
     };
 
     const setDocumentUploaded = (array) => {
-        array = array.map(el => {
-            el.shift()
-            return el;
-        });
+      
 
         setDocHeaders(array[0]);
         setDocBody(array.map((el, idx) => {
