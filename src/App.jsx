@@ -123,7 +123,7 @@ function App() {
           <div 
             className='upload'
           >
-            <img src={pdf} alt="Pdf Image" />
+            <img src="https://www.nicepng.com/maxp/u2w7e6a9e6r5y3y3/" alt="Pdf Image" />
             <p>Drag and drop your pdf here</p>
             <label>Upload File <input type="file" accept=".xls, .xlsx" onChange={docUploadHandler}/> </label>
             <p>Maximum of 10mb</p>
@@ -143,9 +143,9 @@ function App() {
               </li>
               {
                 searchResults?.length > 0 && (
-                  docBody.map((list, i) => (
-                    i !== 0 && (
-                      <li>
+                  docBody.map(list => (
+
+                       <li>
                         {
                           list?.length > 0 && (
                             list.map(body => (
@@ -154,7 +154,7 @@ function App() {
                           )
                         }
                       </li>
-                    )
+
                   ))
                 )
               }
