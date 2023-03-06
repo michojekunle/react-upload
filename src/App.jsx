@@ -9,8 +9,8 @@ import pdf from './pdf.svg';
 import './App.css';
 
 function App() {
-  const { userProfile, handleSignOut, authstate, setAuthstate, docUpload, setDocUpload, searchResults } = useContext(AuthContext);
-  console.log("Image FIles", docUpload);
+  const { userProfile, handleSignOut, authstate, setAuthstate, setDocumentUploaded, searchResults, docHeaders, docBody } = useContext(AuthContext);
+  
 
     const processExcelFile = (data) => {
       let workbook = XLSX.read(data, {type: 'binary'});
@@ -19,38 +19,42 @@ function App() {
 
       // Convert Array to json
       const dataParse = XLSX.utils.sheet_to_json(ws, {header: 1});
-      console.log(dataParse);
-
+      console.log("DataParsed", dataParse);
+      alert(dataParse);
+      return dataParse;
     } 
 
   const docUploadHandler = (e) => {
     const fileUploaded = e.target.files[0];
 
+    alert("Hello World")
     //for browsers other than internet explorer
-    if(typeof (FileReader) != 'undefined'){
+    if(typeof (FileReader) !== 'undefined'){
+      alert("fileReadeer Confimed")
       let reader = new FileReader();
 
       if(reader.readAsBinaryString){
+        alert("reading as Binary String...")
+        
         reader.onload = function(e) {
-          processExcelFile(e.target.result)
+          const res = processExcelFile(e.target.result);
+          setDocumentUploaded(res);
         }
+        reader.readAsBinaryString(fileUploaded)
       } else {
         // For Internet Explorer
         reader.onload = function(e){
           let data = "";
           let bytes = new Uint8Array(e.target.result);
-          for(i=0; i< bytes.byteLength; i++){
+          for(let i=0; i< bytes.byteLength; i++){
             data += String.fromCharCode(bytes[i]);
           }
-          processExcelFile(data);
+          const res = processExcelFile(data);
+          setDocumentUploaded(res)
         }
+        reader.readAsBinaryString(fileUploaded)
       }
     } 
-
-    if (e.target.files.length !== 0) {
-      const file = { name: fileUploaded.name, lastModified: fileUploaded.lastModified, size: fileUploaded.size};
-      setDocUpload([...docUpload, file]);
-    }
   }
 
   function getLastModified(d_c) {
@@ -72,43 +76,13 @@ function App() {
     return lastModified;
   }
 
-  function dropHandler(ev) {
-    console.log("File(s) dropped");
-  
-    // Prevent default behavior (Prevent file from being opened)
-    ev.preventDefault();
-  
-    if (ev.dataTransfer.items) {
-      // Use DataTransferItemList interface to access the file(s)
-      [...ev.dataTransfer.items].forEach((item, i) => {
-        // If dropped items aren't files, reject them
-        if (item.kind === "file") {
-          const file = item.getAsFile();
-          console.log(`… file[${i}].name = ${file.name}`);
-        }
-      });
-    } else {
-      // Use DataTransfer interface to access the file(s)
-      [...ev.dataTransfer.files].forEach((file, i) => {
-        console.log(`… file[${i}].name = ${file.name}`);
-      });
-    }
-  }
-
-  console.log((new Date()).getTime())
-
-  function dragOverHandler(e) {
-    console.log("File(s) in drop zone");
-  
-    // Prevent default behavior (Prevent file from being opened)
-    e.preventDefault();
-  }
+  useEffect(() => {
+    console.log(docHeaders)
+  }, [docHeaders])
 
   useEffect(() => {
-    if(docUpload.length>0){
-      localStorage.setItem('docupload', JSON.stringify(docUpload));
-    }
-  },[docUpload])
+    console.log(docBody)
+  }, [docBody])
 
   return (
       <div className="container">
@@ -152,8 +126,6 @@ function App() {
         <section className='main'>
           <div 
             className='upload'
-            onDrop={dropHandler}
-            onDragOver={dragOverHandler}
           >
             <img src={pdf} alt="Pdf Image" />
             <p>Drag and drop your pdf here</p>
@@ -165,18 +137,28 @@ function App() {
             <h3>Recent Activity</h3>
             <ul className="documents-uploaded">
               <li className='header'>
-                <span>Name</span>
-                <span>Last edited</span>
-                <span>size</span>  
+                {
+                  docHeaders?.length > 0 && (
+                    docHeaders.map(header => (
+                      <span>{header}</span>
+                    ))
+                  )
+                }               
               </li>
               {
-                searchResults.map(upload => (
-                  <li key={upload.lastModified}>
-                    <span>{upload.name}</span>
-                    <span>{getLastModified(upload.lastModified)}</span>
-                    <span>{upload.size}kb</span>
-                  </li>
-                ))
+                docBody?.length > 0 && (
+                  docBody.map(list => (
+                    <li>
+                      {
+                        list?.length > 0 && (
+                          list.map(body => (
+                            <span>{body}</span>
+                          ))
+                        )
+                      }
+                    </li>
+                  ))
+                )
               }
             </ul>
           </section>

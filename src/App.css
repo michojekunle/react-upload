@@ -221,7 +221,7 @@ section.main {
   border-top: 2px solid #b1b1b1;
 }
 
-.uploads .documents-uploaded li:first-of-type {
+.uploads .documents-uploaded li:nth-child(1) {
   border-top: none;
 }
 

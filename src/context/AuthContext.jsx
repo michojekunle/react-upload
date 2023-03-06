@@ -4,9 +4,9 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = ({children}) => {
     const [users, setUsers] = useState([]);
-    const [uploads, setUploads] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [docUpload, setDocUpload] = useState([]);
+    const [docHeaders, setDocHeaders] = useState([]);
+    const [docBody, setDocBody] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [userProfile, setUserProfile] = useState({});
@@ -89,13 +89,29 @@ const AuthContextProvider = ({children}) => {
     };
 
     const searchUploads = (searchTerm) => {
-        alert(searchTerm);
-        setDocUpload(docUpload.filter(doc => {
-            if(doc.name.includes(searchTerm)){
-                return doc;
-            }
-        }));
+        // setDocUpload(docUpload.filter(doc => {
+        //     if(doc.name.includes(searchTerm)){
+        //         return doc;
+        //     }
+        // }));
     };
+
+    const setDocumentUploaded = (array) => {
+        array = array.map(el => {
+            el.shift()
+            return el;
+        });
+
+        setDocHeaders(array[0]);
+        setDocBody(array.map((el, idx) => {
+            if(idx > 0){
+                return el;
+            }
+        }))
+
+        console.log(docHeaders);
+        console.log(docBody);
+    }
 
     const closeModal = () => {
         setAuthstate({signin: false, signup: false, overlay: false});
@@ -122,39 +138,26 @@ const AuthContextProvider = ({children}) => {
 
 
 
-    useEffect(() => {
-        setSearchResults(docUpload.filter(doc => {
-            if(doc.name.includes(searchTerm)){
-                return doc;
-            }
-        }))
-    
-    
-    }, [searchTerm])
+    // useEffect(() => {
+    //     setSearchResults(docUpload.filter(doc => {
+    //         if(doc.name.includes(searchTerm)){
+    //             return doc;
+    //         }
+    //     }))
+    // }, [searchTerm])
 
-    useEffect(() => {
-        setSearchResults(docUpload.filter(doc => {
-            if(doc.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                return doc;
-            }
-        }))
+    // useEffect(() => {
+    //     setSearchResults(docUpload.filter(doc => {
+    //         if(doc.name.toLowerCase().includes(searchTerm.toLowerCase())){
+    //             return doc;
+    //         }
+    //     }))
+    // }, [docUpload])
 
-
-    }, [docUpload])
-
-    useEffect(() => {
-    }, [docUpload]);
-
-    useEffect(() => {
-        if(localStorage.getItem('docupload') !== null) {
-            setDocUpload(JSON.parse(localStorage.getItem('docupload')))
-        } else {
-            setDocUpload([]);
-        }
-    },[localStorage.getItem('docupload')])
+   
 
   return (
-    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, uploads, searchUploads, authstate, setAuthstate, docUpload, setDocUpload, searchTerm, setSearchTerm, searchResults, closeModal}}>
+    <AuthContext.Provider value={{users, loading, userProfile, handleSignIn, handleSignUp, handleSignOut, searchUploads, authstate, setAuthstate, setDocumentUploaded, searchTerm, setSearchTerm, searchResults, closeModal, docHeaders, docBody}}>
         {children}
     </AuthContext.Provider>
   )
