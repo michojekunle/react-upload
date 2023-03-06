@@ -125,7 +125,7 @@ function App() {
           >
             <img src={pdf} alt="Pdf Image" />
             <p>Drag and drop your pdf here</p>
-            <label>Upload File <input type="file" onChange={docUploadHandler}/> </label>
+            <label>Upload File <input type="file" accept=".xls, .xlsx" onChange={docUploadHandler}/> </label>
             <p>Maximum of 10mb</p>
           </div>
           
