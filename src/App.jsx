@@ -143,8 +143,8 @@ function App() {
               </li>
               {
                 searchResults?.length > 0 && (
-                  docBody.map(list => (
-
+                  docBody.map((list, i) => (
+                    i!== 0 && (
                        <li>
                         {
                           list?.length > 0 && (
@@ -154,7 +154,7 @@ function App() {
                           )
                         }
                       </li>
-
+                     )
                   ))
                 )
               }
