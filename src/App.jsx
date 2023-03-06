@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { AuthContext } from './context/AuthContext';
 
-import pdf from './pdf.svg';
+import xls from './download.svg';
 import './App.css';
 
 function App() {
@@ -123,14 +123,14 @@ function App() {
           <div 
             className='upload'
           >
-            <img src="https://www.nicepng.com/maxp/u2w7e6a9e6r5y3y3/" alt="Pdf Image" />
+            <img src={xls} alt="Pdf Image" />
             <p>Drag and drop your pdf here</p>
             <label>Upload File <input type="file" accept=".xls, .xlsx" onChange={docUploadHandler}/> </label>
             <p>Maximum of 10mb</p>
           </div>
           
           <section className="uploads">
-            <h3>Recent Activity</h3>
+            <h3>Output</h3>
             <ul className="documents-uploaded">
               <li className='header'>
                 {
