@@ -5,7 +5,7 @@ import SignUp from './components/SignUp';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { AuthContext } from './context/AuthContext';
 
-import xls from './download.svg';
+import xls from './download.png';
 import './App.css';
 
 function App() {
