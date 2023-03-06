@@ -138,21 +138,25 @@ const AuthContextProvider = ({children}) => {
 
 
 
-    // useEffect(() => {
-    //     setSearchResults(docUpload.filter(doc => {
-    //         if(doc.name.includes(searchTerm)){
-    //             return doc;
-    //         }
-    //     }))
-    // }, [searchTerm])
-
-    // useEffect(() => {
-    //     setSearchResults(docUpload.filter(doc => {
-    //         if(doc.name.toLowerCase().includes(searchTerm.toLowerCase())){
-    //             return doc;
-    //         }
-    //     }))
-    // }, [docUpload])
+    useEffect(() => {
+        setSearchResults(docBody.map(list => {
+            let found = false;
+            if (list?.length > 0){
+                list?.forEach(text => {
+                    if (String(text).includes(searchTerm)){
+                        found = true;
+                    }
+                })
+            }
+            if (found){
+                return list;
+            }
+        }));        
+    }, [searchTerm])
+    
+    useEffect(() => {
+        setSearchResults(docBody);           
+    }, [docBody])
 
    
 

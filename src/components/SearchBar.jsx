@@ -6,7 +6,7 @@ const SearchBar = () => {
 
   return (
     <div>
-        <form className='search-bar-form' >
+        <form className='search-bar-form' onSubmit={e => e.preventDefault()}>
             <i className="fas fa-search"></i>
             <input 
                 type="text"

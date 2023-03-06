@@ -20,21 +20,17 @@ function App() {
       // Convert Array to json
       const dataParse = XLSX.utils.sheet_to_json(ws, {header: 1});
       console.log("DataParsed", dataParse);
-      alert(dataParse);
       return dataParse;
     } 
 
   const docUploadHandler = (e) => {
     const fileUploaded = e.target.files[0];
 
-    alert("Hello World")
     //for browsers other than internet explorer
     if(typeof (FileReader) !== 'undefined'){
-      alert("fileReadeer Confimed")
       let reader = new FileReader();
 
       if(reader.readAsBinaryString){
-        alert("reading as Binary String...")
         
         reader.onload = function(e) {
           const res = processExcelFile(e.target.result);
@@ -146,17 +142,19 @@ function App() {
                 }               
               </li>
               {
-                docBody?.length > 0 && (
-                  docBody.map(list => (
-                    <li>
-                      {
-                        list?.length > 0 && (
-                          list.map(body => (
-                            <span>{body}</span>
-                          ))
-                        )
-                      }
-                    </li>
+                searchResults?.length > 0 && (
+                  docBody.map((list, i) => (
+                    i !== 0 && (
+                      <li>
+                        {
+                          list?.length > 0 && (
+                            list.map(body => (
+                              <span>{body}</span>
+                            ))
+                          )
+                        }
+                      </li>
+                    )
                   ))
                 )
               }
